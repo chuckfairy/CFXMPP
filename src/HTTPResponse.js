@@ -6,7 +6,7 @@
  */
 "use strict";
 
-var Utils = require( __dirname + "utils/Utils.js" );
+var Utils = require( __dirname + "/utils/Utils.js" );
 
 var Http = require( "http" );
 

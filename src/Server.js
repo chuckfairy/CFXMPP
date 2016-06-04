@@ -7,9 +7,11 @@
 
 //Main XMPP Server module
 
-var XMPP = require( "xmpp-server" );
+var XMPP = require( "node-xmpp-server" );
 
-var WS = require( "ws" );
+var HTTPResponse = require( __dirname + "/HTTPResponse.js" );
+
+var Client = require( __dirname + "/Client.js" );
 
 
 //Main class
@@ -17,6 +19,14 @@ var WS = require( "ws" );
 function Server( options ) {
 
     var scope = this;
+
+    scope.HTTPResponse = new HTTPResponse({
+        port: scope.httpPort
+    });
+
+    scope.http = scope.HTTPResponse.server;
+
+    scope.init();
 
 }
 
@@ -26,6 +36,14 @@ Server.prototype = {
 
     C2S: null,
 
+    HTTPResponse: null,
+
+    http: null,
+
+    httpPort: 6669,
+
+    port: 6666,
+
 
     //Initializer
 
@@ -33,8 +51,19 @@ Server.prototype = {
 
         var scope = this;
 
-        scope.C2S = XMP.C2S.TCPServer({
-            port: 5222,
+        scope.setXMPP();
+
+        scope.setClient();
+
+    },
+
+
+    setXMPP: function() {
+
+        var scope = this;
+
+        scope.C2S = new XMPP.C2S.TCPServer({
+            port: scope.port,
             domain: "localhost"
         });
 
@@ -57,5 +86,15 @@ Server.prototype = {
     },
 
 
+    setClient: function() {
+
+        var scope = this;
+
+        scope.Client = new Client( scope );
+
+    }
+
+
 };
 
+module.exports = Server;

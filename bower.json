@@ -22,6 +22,6 @@
     "dependencies": {
         "bootstrap": "*",
         "ionicons": "*",
-        "ws": "*"
+        "nunjucks": "*"
     }
 }
