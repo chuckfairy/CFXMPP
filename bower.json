@@ -1,0 +1,27 @@
+{
+    "name": "cfxmpp-chat",
+    "description": "",
+    "main": "index.js",
+    "authors": [
+        "chuckfairy"
+    ],
+    "license": "MIT",
+    "moduleType": [
+        "node"
+    ],
+    "homepage": "",
+    "private": true,
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "www/plugin",
+        "test",
+        "tests"
+    ],
+    "dependencies": {
+        "bootstrap": "*",
+        "ionicons": "*",
+        "ws": "*"
+    }
+}
