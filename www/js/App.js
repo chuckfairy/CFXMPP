@@ -32,8 +32,11 @@ CF.XMPP.App = function() {
 
     });
 
-    scope.Connection.on( "message", function( data ) {
+    scope.Connection.response( "stanza-received", function( data ) {
 
+        console.log( data );
+
+        scope.UI.addMessage( data );
 
     });
 

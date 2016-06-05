@@ -60,4 +60,6 @@ CF.XMPP.Connection.prototype = {
 
     }
 
-}
+};
+
+CF.Dispatcher.prototype.apply( CF.XMPP.Connection.prototype );

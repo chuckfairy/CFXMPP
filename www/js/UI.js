@@ -76,6 +76,8 @@ CF.XMPP.UI.prototype = {
 
             scope.setTemplates();
 
+            scope.setForm();
+
             scope.dispatch({ type: "compile" });
 
         });
@@ -109,6 +111,8 @@ CF.XMPP.UI.prototype = {
 
         var scope = this;
 
+        scope.messagesElement.className = "message-area";
+
         scope.domElement.appendChild( scope.loginElement );
         scope.domElement.appendChild( scope.messagesElement );
         scope.domElement.appendChild( scope.postElement);
@@ -137,7 +141,6 @@ CF.XMPP.UI.prototype = {
     },
 
 
-
     //Get input message
 
     getMessage: function() {
@@ -159,10 +162,17 @@ CF.XMPP.UI.prototype = {
 
         var scope = this;
 
-        scope.messageElement.innerHTML = scope.compiled[ "message" ].render( stanza );
+        var div = document.createElement( "div" );
+
+        div.innerHTML = scope.compiled[ "message" ].render( stanza );
+
+        var bod = div.getElementsByTagName( "body" );
+
+        bod = bod[ 0 ];
+
+        scope.messagesElement.appendChild( div );
 
     }
-
 
 };
 

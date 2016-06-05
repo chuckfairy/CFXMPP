@@ -2,8 +2,10 @@
 
 <div class="message-block">
 
-    <h4>{{ stanza.from }}</h4>
+    <h4><strong>From:</strong> {{ from }}</h4>
 
-    <p>{{ stanza.message }}</p>
+    <h5>Message</h5>
+
+    <p>{{ message|safe }}</p>
 
 </div>

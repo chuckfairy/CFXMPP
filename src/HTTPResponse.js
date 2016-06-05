@@ -103,10 +103,9 @@ HTTPResponse.prototype = {
 
         }
 
-    },
+    }
 
 };
-
 
 
 //Defaults

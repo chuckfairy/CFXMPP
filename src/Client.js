@@ -1,6 +1,9 @@
 /**
  * Socket to server for client
  *
+ * @param CFXMPP.Server Server
+ * @param Object opts
+ *
  */
 "use strict";
 
@@ -79,38 +82,48 @@ Client.prototype = {
     },
 
 
-    //XMPP Client API
-
-    setAPI: function() {
-
-        var scope = this;
-
-        scope.API = new XMPPClient({
-            jid: scope.opts.jid + "@" + scope.opts.host,
-            password: scope.opts.password
-        });
-
-        scope.API.on( "online", function () {
-            console.log('client1: online');
-        });
-
-    },
-
-
     //Set socket
 
     setSocket: function( socket ) {
 
         var scope = this;
 
-        socket.on( "stanza-message", scope.sendMessage.bind( scope ) );
+        socket.on( "stanza-message", function( data ) {
+
+            scope.sendMessage( socket, data );
+
+        });
+
+        socket.xmpp = new XMPPClient({
+            jid: scope.opts.jid + "@" + scope.opts.host,
+            password: scope.opts.password,
+            port: scope.server.port || 5222
+        });
+
+        socket.xmpp.on( "online", function () {
+
+            console.log('client1: online');
+
+        });
+
+        socket.xmpp.on( "stanza", function( data ) {
+
+            console.log( "STANZA EVENT", data );
+
+        });
+
+        socket.xmpp.on('error', function (error) {
+
+            console.log('CLIENT ERROR', error);
+
+        });
 
     },
 
 
     //Send XMPP Message
 
-    sendMessage: function( data ) {
+    sendMessage: function( socket, data ) {
 
         var scope = this;
 
@@ -122,7 +135,7 @@ Client.prototype = {
 
         console.log( "Stanza attempting to send" );
 
-        scope.API.send( Stanza );
+        socket.xmpp.send( Stanza );
 
     }
 
@@ -135,7 +148,7 @@ Dispatcher.prototype.apply( Client.prototype );
 
 Client.Defaults = {
 
-    jid: "client",
+    jid: "anon",
 
     host: "localhost",
 

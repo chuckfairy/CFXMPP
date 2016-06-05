@@ -47,7 +47,7 @@ Server.prototype = {
 
     httpLocation: Path.resolve( __dirname, "../", "www" ) + "/",
 
-    port: 6666,
+    port: 5222,
 
 
     //Initializer
@@ -74,11 +74,21 @@ Server.prototype = {
 
         scope.C2S.on( "connection", function( client ) {
 
-            console.log( client );
+            console.log( "Client Connected", client.toString() );
 
             client.on( "register", function( opts, cb ) {
 
+                console.log("REGISTER");
+
                 cb( true );
+
+            });
+
+            client.on( "authenticate", function (opts, cb) {
+
+                console.log( "Client Authenticated" );
+
+                cb( null, opts );
 
             });
 
@@ -88,7 +98,7 @@ Server.prototype = {
 
             });
 
-            client.on( "stanza", function (stanza) {
+            client.on( "stanza", function( stanza ) {
 
                 var data = {
                     from: stanza.attrs.from,
@@ -96,9 +106,23 @@ Server.prototype = {
                     message: stanza.toString()
                 };
 
+                console.log( "STANZA RECEIVED SERVER", stanza );
+
                 scope.Client.io.emit( "stanza-received", data );
 
             });
+
+        });
+
+        scope.C2S.on( "stanza", function() {
+
+            console.log( "STANZA FROM SERVER EVENT" );
+
+        });
+
+        scope.C2S.on( "listening", function() {
+
+            console.log( "NOW LISTENING" );
 
         });
 
