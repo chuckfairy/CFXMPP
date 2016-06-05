@@ -1,7 +1,7 @@
 /**
  * Templater
  *
- * @requires[ THREE.AJAX, nunjucks ]
+ * @requires[ CF.AJAX, nunjucks ]
  *
  */
 CF.Templater = new function() {
@@ -25,7 +25,7 @@ CF.Templater = new function() {
 
         var addTemplate = function( template ) {
 
-            THREE.AJAX.get( template, function( response ) {
+            CF.AJAX.get( template, function( response ) {
 
                 templates[ template ] = response;
 
@@ -56,7 +56,7 @@ CF.Templater = new function() {
 
     scope.compileTemplate = function( name, text ) {
 
-        compiledTemplates[ name ] = nunjucks.compile( text, THREE.Templater.Environment );
+        compiledTemplates[ name ] = nunjucks.compile( text, CF.Templater.Environment );
         compiledTemplates[ name ].path = "";
 
     };
@@ -66,9 +66,11 @@ CF.Templater = new function() {
 
     scope.renderTemplate = function( name, variables ) {
 
-        var template = compiledTemplates[ name ] ?
-            compiledTemplates[ name ].render( variables ) :
-            THREE.Templater.Environment.render( + name, variables );
+        console.log( name );
+
+        var template = compiledTemplates[ name ]
+            ? compiledTemplates[ name ].render( variables )
+            : CF.Templater.Environment.render( + name, variables );
 
         template = template.trim();
 
@@ -76,8 +78,17 @@ CF.Templater = new function() {
 
     };
 
+
+    //Get Compiled template
+
+    scope.getTemplate = function( name ) {
+
+        return compiledTemplates[ name ];
+
+    };
+
 };
 
-THREE.Templater.Engine = nunjucks;
+CF.Templater.Engine = nunjucks;
 
-THREE.Templater.Environment = new THREE.Templater.Engine.Environment( new THREE.Templater.Engine.WebLoader( '/' ) ),
+CF.Templater.Environment = new CF.Templater.Engine.Environment( new CF.Templater.Engine.WebLoader( '/' ) );

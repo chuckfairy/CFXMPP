@@ -12,6 +12,8 @@ var XMPPClient = require('node-xmpp-client')
 
 var Utils = require( __dirname + "/utils/Utils.js" );
 
+var Dispatcher = require( __dirname + "/utils/EventDispatcher.js" );
+
 
 //Main class
 
@@ -88,6 +90,10 @@ Client.prototype = {
             password: scope.opts.password
         });
 
+        scope.API.on( "online", function () {
+            console.log('client1: online');
+        });
+
     },
 
 
@@ -114,11 +120,15 @@ Client.prototype = {
 
         Stanza.c( "body" ).t( data.message );
 
+        console.log( "Stanza attempting to send" );
+
         scope.API.send( Stanza );
 
     }
 
 };
+
+Dispatcher.prototype.apply( Client.prototype );
 
 
 //Defaults

@@ -1,0 +1,28 @@
+/**
+ * Main css
+ *
+ *
+ */
+
+#post-message {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-top: 4px solid #000000;
+    padding: 15px 0;
+    background: #DEDEDE;
+}
+
+#message-form {
+    padding: 0 10px;
+}
+
+#post-message .input-group-addon, #post-message button {
+    background-color: #19FABE;
+}
+
+#post-message button {
+    color: #000;
+    border: none;
+}

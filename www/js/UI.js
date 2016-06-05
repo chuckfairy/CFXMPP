@@ -8,7 +8,7 @@ CF.XMPP.UI = function( opts ) {
 
     var scope = this;
 
-    scope.domElement = document.getElementId( "app" );
+    scope.domElement = document.getElementById( scope.appId );
 
     scope.messagesElement = document.createElement( "div" );
 
@@ -29,6 +29,12 @@ CF.XMPP.UI.prototype = {
 
     //Main dom renderers
 
+    appId: "app",
+
+    formId: "message-form",
+
+    messageId: "message-input",
+
     domElement: null,
 
     messagesElement: null,
@@ -36,6 +42,10 @@ CF.XMPP.UI.prototype = {
     loginElement: null,
 
     postElement: null,
+
+    form: null,
+
+    messageInput: null,
 
 
     //Templater
@@ -81,11 +91,11 @@ CF.XMPP.UI.prototype = {
 
         var scope = this;
 
-        var loginHTML  = scope.Templater.renderTemplate( "templates/login.html" );
+        var loginHTML  = scope.Templater.renderTemplate( "templates/login.html", {} );
 
-        var postHTML = scope.Templater.renderTemplate( "templates/posts.html" );
+        var postHTML = scope.Templater.renderTemplate( "templates/post.html", {} );
 
-        scope.compiled[ "message" ] = scope.Templater.compiledTemplates[ "templates/message.html" ];
+        scope.compiled[ "message" ] = scope.Templater.getTemplate( "templates/message.html" );
 
         scope.postElement.innerHTML = postHTML;
         scope.loginElement.innerHTML = loginHTML;
@@ -104,6 +114,44 @@ CF.XMPP.UI.prototype = {
         scope.domElement.appendChild( scope.postElement);
 
     },
+
+
+    //Set form
+
+    setForm: function() {
+
+        var scope = this;
+
+        scope.form = document.getElementById( scope.formId );
+
+        scope.form.onsubmit = function( e ) {
+
+            e.preventDefault();
+
+            scope.dispatch({ type: "message-submit" });
+
+        };
+
+        scope.messageInput = document.getElementById( scope.messageId );
+
+    },
+
+
+
+    //Get input message
+
+    getMessage: function() {
+
+        var scope = this;
+
+        var message = scope.messageInput.value;
+
+        scope.messageInput.value = "";
+
+        return message;
+
+    },
+
 
     //Add message
 

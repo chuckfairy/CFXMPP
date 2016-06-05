@@ -115,7 +115,7 @@ HTTPResponse.Defaults = {
 
     port: 4200,
 
-    location: Path.resolve( __dirname, "../../", "www" ) + "/",
+    location: Path.resolve( __dirname, "../", "www" ) + "/",
 
     verbose: true
 

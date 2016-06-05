@@ -4,7 +4,7 @@
  * @requires [ io ]
  *
  */
-var CF.XMPP.Connection = function() {
+CF.XMPP.Connection = function() {
 
     var scope = this;
 
@@ -28,6 +28,35 @@ CF.XMPP.Connection.prototype = {
         var scope = this;
 
         scope.socket = scope.io();
+
+    },
+
+
+    //Socket funcs
+
+    request: function( type, obj ) {
+
+        this.socket.emit( type, obj );
+
+    },
+
+    response: function( type, callback ) {
+
+        this.socket.on( type, callback );
+
+    },
+
+
+
+    //Main sender
+
+    sendMessage: function( message ) {
+
+        var scope = this;
+
+        var data = { message: message };
+
+        scope.request( "stanza-message", data );
 
     }
 

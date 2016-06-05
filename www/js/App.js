@@ -23,4 +23,18 @@ CF.XMPP.App = function() {
 
     scope.UI = new CF.XMPP.UI();
 
+
+    //Set events
+
+    scope.UI.on( "message-submit", function() {
+
+        scope.Connection.sendMessage( scope.UI.getMessage() );
+
+    });
+
+    scope.Connection.on( "message", function( data ) {
+
+
+    });
+
 };
