@@ -1,0 +1,16 @@
+{
+
+    "type": "javascript",
+
+    "compile": [
+        "plugin/nunjucks/browser/nunjucks.min.js",
+        "js/App.js",
+        "js/Utils/Dispatcher.js",
+        "js/Utils/AJAX.js",
+        "js/Utils/Templater.js",
+        "js/UI.js",
+        "js/Connection.js",
+        "js/Main.js"
+    ]
+
+}

@@ -13,6 +13,7 @@
      "node-xmpp-component": "*",
      "node-xmpp-client": "*",
      "node-static": "*",
-     "socket.io": "*"
+     "socket.io": "*",
+     "opn": "*"
   }
 }

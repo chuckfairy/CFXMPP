@@ -38,13 +38,13 @@ html, html > body {
 .message-area {
     overflow-y: scroll;
     max-height: 95vh;
-    padding-bottom: 6em;
+    padding-bottom: 2em;
 }
 
 .message-block {
     padding: 10px;
     border-left: 6px solid #19FABE;
-    background: #DDDDDD;
+    background: #DEDEDE;
     margin-bottom: 20px;
 }
 
